@@ -1,20 +1,25 @@
 <?php
 
-class Solution {
+class Solution
+{
 
-    function searchInsert($nums, $target) {
-        $keys = array_search($target, $nums);
-        if($keys !== false) {
-            return $keys;
-        }
-        for($i = 0; $i < count($nums); $i++) {
-            if($target < $nums[$i]) {
-                return $i;
+    function searchInsert($nums, $target)
+    {
+        $startArrayIndex = 0;
+        $endArrayIndex = count($nums) - 1;
+
+        while ($startArrayIndex <= $endArrayIndex) {
+            $midArrayIndex = floor(($startArrayIndex + $endArrayIndex) / 2);
+
+            if ($nums[$midArrayIndex] == $target) {
+                return $midArrayIndex;
+            }
+            if ($nums[$midArrayIndex] < $target) {
+                $startArrayIndex = $midArrayIndex + 1;
+            } else {
+                $endArrayIndex = $midArrayIndex - 1;
             }
         }
-        return count($nums);
+        return $startArrayIndex;
     }
 }
-
-// Refaire en découpent le millieu du tableau à chaque fois et cherchez en fonction de la target dans le premier milleu ou deuxième
-// Si la target et le millieu --> return
